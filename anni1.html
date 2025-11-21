@@ -1,69 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>One Year Anniversary</title>
-  <link rel="stylesheet" href="anni1.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>One Year Anniversary — Single File</title>
+  <style>
+    /* ---------- Base ---------- */
+    :root{
+      --sidebar-w:150px;
+      --accent:#ff7a95;
+      --bg:#ffeef3;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* ---------- Sidebar (animated slide-in) ---------- */
+    .sidebar{
+      position:fixed;
+      top:0;
+      left:-var(--sidebar-w);
+      width:var(--sidebar-w);
+      height:100vh;
+      background:linear-gradient(180deg,#ffb8c8,#ff9ab3);
+      padding-top:28px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+      box-shadow:3px 0 12px rgba(0,0,0,0.08);
+      animation:sidebar-in 800ms forwards cubic-bezier(.2,.9,.2,1);
+      z-index:50;
+    }
+    @keyframes sidebar-in{
+      from{left:calc(-1 * var(--sidebar-w))}
+      to{left:0}
+    }
+    .sidebar button{
+      width:120px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      cursor:pointer;
+      font-weight:600;
+      transition:transform .18s ease, box-shadow .18s;
+      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+    }
+    .sidebar button:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 10px 20px rgba(0,0,0,0.12) }
+
+    /* ---------- Content ---------- */
+    .main{
+      margin-left:var(--sidebar-w);
+      padding:28px;
+      min-height:100vh;
+    }
+    .page{
+      display:none;
+      max-width:980px;
+      margin:0 auto;
+      background:linear-gradient(180deg,#fff7fa,#fff5f8);
+      border-radius:18px;
+      padding:22px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.06);
+    }
+    .page.active{ display:block; }
+    h2{ margin:0 0 14px 0; color:#c83a57 }
+
+    /* ---------- fade-in animation for page content ---------- */
+    .fade-in{
+      animation:fadeUp .45s ease both;
+    }
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(10px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    /* ---------- Pictures ---------- */
+    .picture-row{ display:flex; gap:18px; margin-bottom:14px; }
+    .picture-row img{
+      width:180px; height:120px; object-fit:cover; border-radius:12px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.12);
+      background:linear-gradient(90deg,#ffe6ee,#fff);
+    }
+
+    /* ---------- Editor textarea ---------- */
+    textarea.letter{
+      width:100%;
+      min-height:260px;
+      padding:16px;
+      font-size:16px;
+      border-radius:12px;
+      border:1px solid rgba(200,100,130,0.18);
+      resize:vertical;
+      background:transparent;
+      color:#333;
+      outline:none;
+    }
+    
+    textarea.letter::placeholder{
+      color:#ea79a4;
+      opacity:1;
+    }
+
+    /* ---------- Petal ---------- */
+    .petal{
+      position:fixed;
+      top:-60px;
+      width:34px; height:34px;
+      background-image:url("petal.png");
+      background-size:cover;
+      opacity:0.9;
+      pointer-events:none;
+      z-index:40;
+      animation:fall linear infinite;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.12));
+    }
+    @keyframes fall{
+      0%{ transform: translateY(0) rotate(0deg) }
+      100%{ transform: translateY(115vh) rotate(360deg) }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:720px){
+      .picture-row img{ width:120px; height:100px }
+      .sidebar{ left:0; width:120px } /* smaller on mobile */
+      .main{ margin-left:120px; padding:18px }
+    }
+
+  </style>
 </head>
 <body>
-
-  <!-- Sliding Sidebar -->
-  <div class="sidebar">
-    <button data-page="page1">Month 1</button>
-    <button data-page="page2">Month 2</button>
-    <button data-page="page3">Month 3</button>
-    <button data-page="page4">Month 4</button>
-    <button data-page="page5">Month 5</button>
+  <div class="sidebar" aria-hidden="false">
+    <button data-page="page1">1 year anniversary</button>
+    <button data-page="page2">Memories</button>
+    <button data-page="page3">Bucket List of Dates</button>
+    <button data-page="page4">Our Future?</button>
+    <button data-page="page5">Conclusion</button>
   </div>
 
-  <!-- Content -->
-  <div class="content">
+  <main class="main">
+    <!-- PAGE 1: only writing -->
+    <section id="page1" class="page active fade-in" aria-labelledby="m1">
+      <h2 id="m1">HIIII BABYYY 💗</h2>
+      <textarea class="letter" placeholder="HAPPYY 1 YEAE ANNIVERSARYY!!! It's been 356 days or 12 months or a year that we haven been togetherr. YAYYYYYYYY. Look how far we've came babyy. I wanna continue moving towards with you until the sun turns to white dwarf, all the water in the sea evaporates and when there is 30th of February on the calendar. Do you know how much happiness you brought to me?? Ever since, I saw your lovely eyes filled with kindness and joy made me happy. Not only your eyes but your actions, smiles, personalities and a lot of thing more made me fall in love with you madly. Thinking about you all the time and saying 'I miss Jue' is like a habit for menow. There were no days that I passed without saying 'I miss Jue'. I LOVE YOU WITH ALL MY HEART MY PRINCESS!!!"></textarea>
+    </section>
 
-    <div id="page1" class="page active fade">
-      <h2>Month 1 ❤️</h2>
-      <textarea placeholder="Write your love letter..."></textarea>
-    </div>
-
-    <div id="page2" class="page fade">
-      <h2>Month 2 ❤️</h2>
-      <div class="picture-box">
-        <img src="https://via.placeholder.com/150" alt="pic">
-        <img src="https://via.placeholder.com/150" alt="pic">
+    <!-- PAGE 2 -->
+    <section id="page2" class="page" aria-labelledby="m2">
+      <h2 id="m2">Our Memoriess 💝</h2>
+      <div class="picture-row">
+        <img src="images/firstkiss.jpg" alt="Photo slot 1">
+        <img src="images/photobooth1.jpg" alt="Photo slot 2">
       </div>
-      <textarea placeholder="Write your love letter..."></textarea>
-    </div>
+      <textarea class="letter" placeholder="We created a lot of memories together just by going on 2 days, meeting at school and video calling each other online but I wanna create a lot more with you. The memories we created will be forever the best but will always take the best position in my mind. I know some of them were embarrassing or upset but I will always keep those because even though it was bad, I am happy that you are apart of it. If I have to choose one favourite things that happened to us, I would say our FIRST KISS. Remember?? Our first kiss was in the photobooth but we couldn't take the picture. While we were kissing, I forgot to click the button😭. "></textarea>
+    </section>
 
-    <div id="page3" class="page fade">
-      <h2>Month 3 ❤️</h2>
-      <div class="picture-box">
-        <img src="https://via.placeholder.com/150" alt="pic">
-        <img src="https://via.placeholder.com/150" alt="pic">
+    <!-- PAGE 3 -->
+    <section id="page3" class="page" aria-labelledby="m3">
+      <h2 id="m3">Bucket List of Dates I wanna go on with you 💫</h2>
+      <div class="picture-row">
+        <img src="images/D+J.jpg" alt="Photo slot 1">
+        <img src="images/photo_2025-07-04_20-59-21.jpg" alt="Photo slot 2">
       </div>
-      <textarea placeholder="Write your love letter..."></textarea>
-    </div>
+      <textarea class="letter" placeholder="Honestly, going around isn't my thing but if it's with you, I will even travel other dimensions because with you, happiness with me. You filled all the gaps I have babyy.
+         Soo let's list it.
+        
+        -Photobooth date
+        -Aquarium date
+        -Cinema date
+        -Lunch date
+        -Breakfast date
+        -Dinner date
+        -Arcade date
+        -Basketball date
+        -Karaoke date
+        -gaming date
+        -playground date
+        
+        There are a lot more but that's all I can think of for noww 😭"></textarea>
+    </section>
 
-    <div id="page4" class="page fade">
-      <h2>Month 4 ❤️</h2>
-      <div class="picture-box">
-        <img src="https://via.placeholder.com/150" alt="pic">
-        <img src="https://via.placeholder.com/150" alt="pic">
+    <!-- PAGE 4 -->
+    <section id="page4" class="page" aria-labelledby="m4">
+      <h2 id="m4">About Our Future / Future Plan 💍</h2>
+      <div class="picture-row">
+        <img src="images/Screenshot 2024-07-13 215847.png" alt="Photo slot 1">
       </div>
-      <textarea placeholder="Write your love letter..."></textarea>
-    </div>
+      <textarea class="letter" placeholder="Since the moment I started dating you, I saw my future in your eyes. I won't be able to continue if you leave me, you are my only hope to continue to the future. In the future, all I can imagine is us staying in the same house as a lovely family with a lot of kitties and puppies. I know we are still young to say this but I promise that I will be the one waiting at the end of the aisle as you walked down. I love you soo much that I wanna stay by your side until I turn into ashes..."></textarea>
+    </section>
 
-    <div id="page5" class="page fade">
-      <h2>Month 5 ❤️</h2>
-      <div class="picture-box">
-        <img src="https://via.placeholder.com/150" alt="pic">
-        <img src="https://via.placeholder.com/150" alt="pic">
-      </div>
-      <textarea placeholder="Write your love letter..."></textarea>
-    </div>
+    <!-- PAGE 5 -->
+    <section id="page5" class="page" aria-labelledby="m5">
+      <h2 id="m5">HOPE I SEE YOU AS SOON AS POSSIBLE 💓💗</h2>
+      <textarea class="letter" placeholder="The last day we met was around 25th of June and I still miss that day. I still remember the time we looked at each other for the last time before you left. I felt happy seeing you but broken at the same time seeing you walked away. I will still be waiting for the days we can see each other again baby. I hope we meet as soon as possible. I miss your pretty eyes, soft and small hands, dark hair and everything of youu."></textarea>
+    </section>
+  </main>
 
-  </div>
+  <script>
+    /* ---------------- Page switching (safe after DOM ready) ---------------- */
+    (function(){
+      const buttons = document.querySelectorAll('.sidebar button');
+      const pages = document.querySelectorAll('.page');
 
-  <script src="anni1.js"></script>
-</body>
-</html>
+      function show(id){
+        pages.forEach(p => p.classList.remove('active','fade-in'));
+        const target = document.getElementById(id);
+        if(!target) return;
+        target.classList.add('active');
+        // trigger fade
+        void target.offsetWidth;
+        target.classList.add('fade-in');
+        // scroll to top of page content for clarity
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+
+      buttons.forEach(btn=>{
+        btn.addEventListener('click',()=> show(btn.dataset.page));
+      });
+    })();
+
+    /* ---------------- Falling petals ---------------- */
+    (function(){
+      const PETAL_SRC = "https://i.imgur.com/8KpZ8yD.png"; // small petal png hosted publicly
+      function createPetal(){
+        const el = document.createElement('div');
+        el.className = 'petal';
+        // random starting left (allow slightly offscreen)
+        el.style.left = Math.random() * (window.innerWidth + 200) - 100 + 'px';
+        // speed and subtle scale
+        const duration = 4 + Math.random() * 5;
+        el.style.animationDuration = duration + 's';
+        el.style.opacity = 0.7 + Math.random()*0.3;
+        el.style.transform = `rotate(${Math.random()*360}deg) scale(${0.9 + Math.random()*0.4})`;
+
+        // use background image already in CSS; no inline image needed
+        document.body.appendChild(el);
+        setTimeout(()=> el.remove(), (duration + 0.4) * 1000);
+      }
+      // initial burst
+      for(let i=0;i<8;i++){ setTimeout(createPetal, i*150) }
+      // steady stream
+      setInterval(createPetal, 650);
+    })();
+  </script>
+
 
