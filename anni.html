@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anniversary Love Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff5f7;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 100vh;
+      background: #f8d0da;
+      padding-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar button {
+      width: 90px;
+      padding: 10px;
+      border: none;
+      background: #ff8fa3;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .sidebar button:hover {
+      background: #ff6b88;
+    }
+
+    /* Love Letter Box */
+    .love-letter {
+      margin-left: 150px;
+      margin-top: 50px;
+      width: 70%;
+      min-height: 500px;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Falling Petals */
+    .petal {
+      position: fixed;
+      top: -10px;
+      background-image: url(''); /* petal PNG */
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+      /* Photo Grid */
+    .photo-row {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .photo-row img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-row img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Slower petals */
+    .petal {
+      animation-duration: 10s !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <button>Home</button>
+    <button>Us</button>
+    <button>Gallery</button>
+    <button>Memories</button>
+    <button>Future</button>
+  </div>
+
+  <div class="love-letter" contenteditable="true">
+    Write your love letter here... ❤️
+  </div>
+
+  <script>
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+
+      // Random horizontal starting position
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+
+      // Random animation duration
+      petal.style.animationDuration = (4 + Math.random() * 5) + 's';
+
+      document.body.appendChild(petal);
+
+      // Remove after falling
+      setTimeout(() => {
+        petal.remove();
+      }, 9000);
+    }
+
+    setInterval(createPetal, 700);
+  </script>
+  <!-- Additional Pages -->
+  <div id="page-us" class="page" style="display:none; margin-left:150px; padding:30px;">
+    <h2>About Us</h2>
+    <div class="photo-row" style="display:flex; gap:15px; margin-bottom:15px;">
+      <img src="https://via.placeholder.com/120" class="photo" />
+      <img src="https://via.placeholder.com/120" class="photo" />
+      <img src="https://via.placeholder.com/120" class="photo" />
+    </div>
+    <textarea class="note" placeholder="Write something about this moment..." style="width:100%; height:150px;"></textarea>
+  </div>
+  </div>
+
+  <div id="page-gallery" class="page" style="display:none; margin-left:150px; padding:30px;">
+    <h2>Gallery</h2>
+    <div class="photo-row" style="display:flex; gap:15px; margin-bottom:15px;">
+      <img src="https://via.placeholder.com/120" class="photo" />
+      <img src="https://via.placeholder.com/120" class="photo" />
+      <img src="https://via.placeholder.com/120" class="photo" />
+    </div>
+    <textarea class="note" placeholder="Your message here..." style="width:100%; height:150px;"></textarea>
+  </div>
+  </div>
+
+  <div id="page-memories" class="page" style="display:none; margin-left:150px; padding:30px;">
+    <h2>Memories</h2>
+    <div class="photo-row" style="display:flex; gap:15px; margin-bottom:15px;">
+      <img src="https://via.placeholder.com/120" class="photo" />
+      <img src="https://via.placeholder.com/120" class="photo" />
+      <img src="https://via.placeholder.com/120" class="photo" />
+    </div>
+    <textarea class="note" placeholder="Your thoughts..." style="width:100%; height:150px;"></textarea>
+  </div>
+  </div>
+
+  <div id="page-future" class="page" style="display:none; margin-left:150px; padding:30px;">
+    <h2>Our Future</h2>
+    <div class="section">
+      <img src="https://via.placeholder.com/300" class="photo" />
+      <textarea class="note" placeholder="Write your hopes..."></textarea>
+    </div>
+  </div>
+
+  <script>
+    const pages = {
+      Home: document.querySelector('.love-letter'),
+      Us: document.getElementById('page-us'),
+      Gallery: document.getElementById('page-gallery'),
+      Memories: document.getElementById('page-memories'),
+      Future: document.getElementById('page-future')
+    };
+
+    document.querySelectorAll('.sidebar button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        for (let key in pages) pages[key].style.display = 'none';
+        pages[btn.innerText].style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
